@@ -10,6 +10,8 @@ import { TodoItem } from './todoItem';
 
 export class AppComponent {
 
+  showComplete: boolean = false;
+
   private list = new TodoList("Bob", [
     new TodoItem("Go for run", true),
     new TodoItem("Get flowers"),
@@ -26,7 +28,13 @@ export class AppComponent {
   }
 
   get items(): readonly TodoItem[] {
-    return this.list.items.filter(item => !item.complete);
+    return this.list.items.filter(item => this.showComplete || !item.complete);
+  }
+
+  addItem(newItem: string) {
+    if (newItem != "") {
+      this.list.addItem(newItem);
+    }
   }
 
 }
